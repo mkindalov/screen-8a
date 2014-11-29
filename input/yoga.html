@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>8a Screen - Yoga</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+<script src="//ajax.googleapis.com/ajax/libs/jquerymobile/1.4.3/jquery.mobile.min.js"></script>
+<link rel="stylesheet" href="//ajax.googleapis.com/ajax/libs/jquerymobile/1.4.3/jquery.mobile.min.css" />
+<script src="../assets/js/custom.js"></script>
+
+</head>
+<body>
+  <div data-role="page">
+    <div data-role="header">
+      <a href="../index.html" data-icon="bars" class="ui-btn-left" data-ajax="false">Menu</a>
+      <h1>Yoga</h1>
+    </div>
+    <div role="main" class="ui-content">
+      <form action="#" data-type="autopost" data-database="workout" data-collection="coll1">
+        <label for="date">Date:</label> 
+        <input type="date" name="date" id="date" value="">
+        <br/>
+        <fieldset data-role="controlgroup">
+          <legend>Type:</legend>
+          <label for="ashtanga">Ashtanga</label>
+          <input type="radio" name="yoga-type" id="ashtanga" value="Ashtanga" checked="checked">
+          
+          <label for="flow">Flow</label>
+          <input type="radio" name="yoga-type" id="flow" value="Flow">
+          
+          <label for="power">Power yoga</label>
+          <input type="radio" name="yoga-type" id="power" value="Power-yoga">
+          
+          <label for="other">Other yoga</label>
+          <input type="radio" name="yoga-type" id="other" value="Other">
+        </fieldset>
+        <br/>
+        <label for="duration">Duration</label>
+        <input type="range" name="duration" id="duration" value="50" min="0" max="100" data-highlight="true">
+        <br/><br/>
+      </form>
+    </div>
+    <div data-role="footer">powered by:</div>
+    <div></div>
+  </div>
+</body>
+</html>
