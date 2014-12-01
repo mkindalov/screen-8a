@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-<title>8a Screen - Yoga</title>
+<title>8a Screen - Boulder</title>
 <meta charset="UTF-8">
 <meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -15,27 +15,33 @@
   <div data-role="page">
     <div data-role="header">
       <a href="../index.html" data-icon="bars" class="ui-btn-left" data-ajax="false">Menu</a>
-      <h1>Yoga</h1>
+      <h1>Boulder</h1>
     </div>
     <div role="main" class="ui-content">
-      <form action="#" data-tag="yoga" data-type="autopost" data-database="workout" data-collection="coll1">
+      <form action="#" data-tag="boulder" data-type="autopost" data-database="workout" data-collection="coll1">
         <fieldset data-role="controlgroup">
-          <legend>Type:</legend>
-          <label for="ashtanga">Ashtanga</label>
-          <input type="radio" name="yoga-type" id="ashtanga" value="Ashtanga" checked="checked" />
+          <legend>Worked on:</legend>
+          <label for="strength">Strength</label>
+          <input type="checkbox" name="boulder-type" id="strength" value="Strength" checked="checked" />
           
-          <label for="flow">Flow</label>
-          <input type="radio" name="yoga-type" id="flow" value="Flow" />
+          <label for="endurance">Endurance</label>
+          <input type="checkbox" name="boulder-type" id="endurance" value="Endurance" />
           
-          <label for="power">Power yoga</label>
-          <input type="radio" name="yoga-type" id="power" value="Power-yoga" />
+          <label for="power">Power</label>
+          <input type="checkbox" name="boulder-type" id="power" value="Power-yoga" />
           
-          <label for="other">Other yoga</label>
-          <input type="radio" name="yoga-type" id="other" value="Other" />
+          <label for="technique">Technique</label>
+          <input type="checkbox" name="boulder-type" id="technique" value="Technique" />
+          
+          <label for="other">Other</label>
+          <input type="checkbox" name="boulder-type" id="other" value="Other" />
         </fieldset>
         <br/>
         <label for="duration">Duration</label>
         <input type="range" name="duration" id="duration" value="50" min="0" max="100" data-highlight="true" />
+        <br/>
+        <label for="movements">Number of movements</label>
+        <input type="number" name="movements" id="movements" value="" />
         <br/>
       </form>
     </div>

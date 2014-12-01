@@ -1,3 +1,6 @@
+
+
+// Used for getting the query string
 (function($) {
     $.QueryString = (function(a) {
         if (a == "") return {};
@@ -12,6 +15,7 @@
     })(window.location.search.substr(1).split('&'))
 })(jQuery);
 
+//used for serializing forms. Useful for translation Form->Json
 $.fn.serializeObject = function()
 {
     var o = {};
@@ -28,33 +32,46 @@ $.fn.serializeObject = function()
     });
     return o;
 };
-$().ready(function() {
-	$('form[data-type="autopost"]').autopost();
-});
 
-
+//adds submit button and
 (function ( $ ) {
-    $.fn.autopost = function( options ) {
-        var settings = $.extend({
-        }, options );
-        
-        var submitButton = $('<a id="submit" class="ui-shadow ui-btn ui-corner-all" data-icon="check" href="#">Submit</a>');
-    	this.append(submitButton).end();
+    $.fn.autopost = function() {
     	
-    	var apiKey = $.QueryString["apiKey"];
+    	//add default fields
+    	var dateInput = $('<label for="date">Date:</label><input type="date" name="date" id="date" value=""><br/>');
+    	var commentInput = $('<label for="comment">Comment:</label><textarea name="comment" id="comment" value=""></textarea><br/>');
+    	var submitButton = $('<a id="submit" class="ui-shadow ui-btn ui-corner-all" data-icon="check" href="#">Submit</a>');
+    	var satisfactionGroup = $('<fieldset data-role="controlgroup" data-type="horizontal"><legend>Feeling:</legend>' +
+    			'<input type="radio" name="feeling" id="good" value="good" /><label for="good">&nbsp;(ʘ‿ʘ)&nbsp;</label>' +
+    			'<input type="radio" name="feeling" id="average" value="average" /><label for="average">&nbsp;(◕_◕)&nbsp;</label>' +
+    			'<input type="radio" name="feeling" id="bad" value="bad"><label for="bad">&nbsp;(◉︵◉)&nbsp;</label></fieldset><br/>'); 
+    	this.prepend(dateInput);
+    	this.append(satisfactionGroup);
+    	this.append(commentInput);
+    	this.append(submitButton);
     	
-    	$("a").each(function() {
-    	  var _href = $(this).attr("href");
-    	  if (_href != "#") {
-    		  $(this).attr("href", _href + '?apiKey=' + apiKey);
-    	  }
-    	});
+    	var popup = $('<div data-role="popup" id="popupResult" data-overlay-theme="a" data-theme="b" class="ui-content">All ok go <a href="../index.html" data-ajax="false">back</a></div>');
+    	$('body').append(popup);
+    	
+    	//set date
+    	var date = new Date();
+    	var year = date.getFullYear();
+    	var month = (1 + date.getMonth()).toString();
+    	month = month.length > 1 ? month : '0' + month;
+    	var day = date.getDate().toString();
+    	day = day.length > 1 ? day : '0' + day;
+    	var dateString = year + '-' + month + '-' + day;
+    	
+    	$('input[type="date"]').val(dateString);
+    	
+    	//restart the styles for the dynamically added componenets
+    	this.trigger("create");
     	
     	var that = this;
-    	
     	$(this).on('click', "#submit", function() {
-    		var frm = $('form');
-    		var data = JSON.stringify(frm.serializeObject());
+    		var formObject = that.serializeObject()
+    		formObject.tag = that.data('tag');
+    		var data = JSON.stringify(formObject);
     		var apiKey = $.QueryString["apiKey"];
     		
     		var url = "https://api.mongolab.com/api/1/databases/" + that.data('database') + "/collections/" + that.data('collection') + "?apiKey=" + apiKey;
@@ -64,9 +81,29 @@ $().ready(function() {
     			  type: "POST",
     			  contentType: "application/json" } )
     			  .done(function( data ) {
-				    alert("ok");
+    				 $("#popupResult").popup().popup("open");  
 				    });
     		return false;
     	});
     };
 }( jQuery ));
+
+//********************************************************
+//********************************************************
+//********************************************************
+$().ready(function() {
+	//append footer
+	$("#footer").load("../assets/snippets/footer.html");
+	//make each form autopost
+	$('form[data-type="autopost"]').autopost();
+	
+	//append api key to each link
+	var apiKey = $.QueryString["apiKey"];
+	$("a").each(function() {
+  	  var _href = $(this).attr("href");
+  	  if (_href != "#") {
+  		  $(this).attr("href", _href + '?apiKey=' + apiKey);
+  	  }
+  	});
+	
+});

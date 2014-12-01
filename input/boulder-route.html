@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>8a Screen - Boulder route</title>
+<meta charset="UTF-8">
+<meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+<script src="//ajax.googleapis.com/ajax/libs/jquerymobile/1.4.3/jquery.mobile.min.js"></script>
+<script src="../assets/js/custom.js"></script>
+<link rel="stylesheet" href="//ajax.googleapis.com/ajax/libs/jquerymobile/1.4.3/jquery.mobile.min.css" />
+
+</head>
+<body>
+  <div data-role="page">
+    <div data-role="header">
+      <a href="../index.html" data-icon="bars" class="ui-btn-left" data-ajax="false">Menu</a>
+      <h1>Boulder route</h1>
+    </div>
+    <div role="main" class="ui-content">
+      <form action="#" data-tag="boulder-route" data-type="autopost" data-database="workout" data-collection="coll1">
+        <fieldset data-role="controlgroup">
+          <legend>Style:</legend>
+          
+          <label for="onsight">Onsight</label>
+          <input type="radio" name="style" id="onsight" value="Onsight" />
+          
+          <label for="onsight">Flash</label>
+          <input type="radio" name="style" id="flash" value="Flash" />
+          
+          <label for="redpoint">Redpoint</label>
+          <input type="radio" name="style" id="redpoint" value="Redpoint" />
+          
+          <label for="toprope">Top-rope</label>
+          <input type="radio" name="style" id="toprope" value="Top-rope" />
+          
+          <label for="practice">Practice</label>
+          <input type="radio" name="style" id="practice" value="Practice" />
+        </fieldset>
+        <br/>
+        <fieldset data-role="controlgroup">
+          <legend>Grade:</legend>
+          <label for="grade5a">5a</label>
+          <input type="radio" name="grade" id="grade5a" value="5a" />
+          
+          <label for="grade5b">5b</label>
+          <input type="radio" name="grade" id="grade5b" value="5b" />
+          
+          <label for="grade5c">5c</label>
+          <input type="radio" name="grade" id="grade5c" value="5c" />
+          
+          <label for="grade6a">6a</label>
+          <input type="radio" name="grade" id="grade6a" value="6a" />
+          
+          <label for="grade6ap">6a+</label>
+          <input type="radio" name="grade" id="grade6ap" value="6a+" />
+          
+          <label for="grade6b">6b</label>
+          <input type="radio" name="grade" id="grade6b" value="6b" />
+          
+          <label for="grade6bp">6b+</label>
+          <input type="radio" name="grade" id="grade6bp" value="6b+" />
+          
+          <label for="grade6c">6c</label>
+          <input type="radio" name="grade" id="grade6c" value="6c" />
+          
+          <label for="grade6cp">6c+</label>
+          <input type="radio" name="grade" id="grade6cp" value="6c+" />
+          
+          <label for="grade7a">7a</label>
+          <input type="radio" name="grade" id="grade7a" value="7a" />
+          
+          <label for="grade7ap">7a+</label>
+          <input type="radio" name="grade" id="grade7ap" value="7a+" />
+          
+          <label for="grade7b">7b</label>
+          <input type="radio" name="grade" id="grade7b" value="7b" />
+          
+          <label for="grade7bp">7b+</label>
+          <input type="radio" name="grade" id="grade7bp" value="7b+" />
+        </fieldset>
+        <br/>
+        <label for="attempts">Number of attempts</label>
+        <input type="number" name="attempts" id="attempts" value="1" />
+        <br/>
+      </form>
+    </div>
+    <div id="footer" data-role="footer"></div>
+  </div>
+</body>
+</html>
