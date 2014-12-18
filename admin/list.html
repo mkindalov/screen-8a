@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>8a Screen - View entries</title>
+<meta charset="UTF-8">
+<meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+<script src="//ajax.googleapis.com/ajax/libs/jquerymobile/1.4.3/jquery.mobile.min.js"></script>
+<script src="../assets/js/custom.js"></script>
+<link rel="stylesheet" href="//ajax.googleapis.com/ajax/libs/jquerymobile/1.4.3/jquery.mobile.min.css" />
+
+</head>
+<body>
+  <div data-role="page">
+    <div data-role="header">
+      <a href="../index.html" data-icon="bars" class="ui-btn-left" data-ajax="false">Menu</a>
+      <h1>Entries list</h1>
+    </div>
+    <div role="main" class="ui-content">
+      <ul data-role="listview" data-inset="true">
+        <li data-role="list-divider">Friday, October 8, 2010 <span class="ui-li-count">2</span></li>
+      </ul>
+    </div>
+    <div id="footer" data-role="footer"></div>
+  </div>
+</body>
+
+<script type="text/javascript">
+$(document).ready(function() {
+	var apiKey = $.QueryString["apiKey"]
+	$.ajax( { url: "https://api.mongolab.com/api/1/databases/workout/collections/coll1?s={date:-1}&apiKey=" + apiKey, type: "GET"})
+	  .done(function( data ) {
+		  $.each(data, function(i, obj) {
+			  var li = $('<li><a href="index.html"></a></li>');
+			  $('ul').append(li);
+			  jQuery.each(obj, function(key, val) {
+				  if (key=="_id") {return};
+				  if (key=="tag") {
+					  li.find('a').prepend($('<h2>Activity: ' + val + '</h2>'));
+					  return
+					} 
+				  li.find('a').append($('<p><strong>' + key + ':</strong>' + val + '</p>'));
+			  });
+			});
+		  $('ul').listview( "refresh" );
+	    });
+	});
+</script>
+</html>
