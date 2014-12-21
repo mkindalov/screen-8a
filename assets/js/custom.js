@@ -99,8 +99,6 @@ $().ready(function() {
 	
 	//append api key to each link
 	var apiKey = $.QueryString["apiKey"];
-	
-	alert(apiKey);
 	$("a").each(function() {
   	  var _href = $(this).attr("href");
   	  if (_href != "#") {
