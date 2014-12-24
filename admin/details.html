@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>8a Screen - View entries</title>
+<meta charset="UTF-8">
+<meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+<script src="//ajax.googleapis.com/ajax/libs/jquerymobile/1.4.3/jquery.mobile.min.js"></script>
+<script src="../assets/js/custom.js"></script>
+<link rel="stylesheet" href="//ajax.googleapis.com/ajax/libs/jquerymobile/1.4.3/jquery.mobile.min.css" />
+
+</head>
+<body>
+  <div data-role="page">
+    <div data-role="header">
+      <a href="list.html" data-icon="back" class="ui-btn-left" data-ajax="false">Back</a>
+      <a href="#confirmDelete" data-rel="popup" data-icon="delete" class="ui-btn-right">Delete</a>
+      <h1>Details</h1>
+    </div>
+    <div role="main" class="ui-content">
+      <form action="#">
+        <textarea id="jsonInput"> </textarea>
+        <a id="update" class="ui-shadow ui-btn ui-corner-all" data-icon="check" href="#">Update</a>
+      </form>
+    </div>
+    <div id="footer" data-role="footer"></div>
+    <div data-role="popup" id="updateResult" data-overlay-theme="a" data-theme="b" class="ui-content">Updated. <a href="list.html" data-ajax="false">To the list</a></div>
+    <div data-role="popup" id="deleteResult" data-overlay-theme="a" data-theme="b" class="ui-content">Deleted. <a href="list.html" data-ajax="false">To the list</a></div>
+    <div data-role="popup" id="confirmDelete">
+        <div data-role="header">
+        <h1>Delete?</h1>
+        </div>
+        <div role="main" class="ui-content">
+            <h3 class="ui-title">Are you sure you want to delete the entry?</h3>
+            <p>This action cannot be undone.</p>
+            <a href="#" data-rel="back">Cancel</a>
+            <a href="#" id="delete" >Delete</a>
+        </div>
+      </div>
+  </div>
+
+</body>
+
+<script type="text/javascript">
+$(document).ready(function() {
+	var apiKey = $.QueryString["apiKey"];
+	var id = $.QueryString["id"];
+	$.ajax( { url: "https://api.mongolab.com/api/1/databases/workout/collections/coll1/" + id +"?apiKey=" + apiKey, type: "GET"})
+	  .done(function( data ) {
+		  $('#jsonInput').val(JSON.stringify(data, null, 4));
+		  $('#jsonInput').textinput( "refresh" );
+		  console.log(data);
+	    });
+	
+	$(this).on('click', "#update", function() {
+		var id = $.QueryString["id"];
+		$.ajax( { url: "https://api.mongolab.com/api/1/databases/workout/collections/coll1/" + id + "?apiKey=" + apiKey,
+			  data: $('#jsonInput').val(),
+			  type: "PUT",
+			  contentType: "application/json"})
+			  .done(function( data ) {
+				  $("#updateResult").popup().popup("open");
+			    });
+	});
+	
+	$(this).on('click', "#delete", function() {
+		
+		var id = $.QueryString["id"];
+		$("#confirmDelete").popup().popup("close");
+		$.ajax( { url: "https://api.mongolab.com/api/1/databases/workout/collections/coll1/" + id + "?apiKey=" + apiKey,
+			  type: "DELETE",
+			  contentType: "application/json",
+			  success: function(){
+				  $("#deleteResult").popup().popup("open");
+		        }
+			});
+	});
+});
+</script>
+</html>

@@ -88,6 +88,19 @@ $.fn.serializeObject = function()
     };
 }( jQuery ));
 
+function dateToString(date) {
+	var m_names = new Array("Јануари", "Февруари", "Март", 
+			"Април", "Мај", "Јуни", "Јули", "Август", "Септември", 
+			"Октомври", "Ноември", "Декември");
+	
+	var d_names = new Array("Недела", "Понеделник", "Вторник", "Среда", 
+			"Четврток", "Петок", "Сабота");
+	var day_month = date.getDate();
+	var month = date.getMonth();
+	var year = date.getFullYear();
+	var day_week = date.getDay();
+	return d_names[day_week] + ", " + day_month + " " + m_names[month]	+ ", " + year;
+}
 //********************************************************
 //********************************************************
 //********************************************************
@@ -101,7 +114,7 @@ $().ready(function() {
 	var apiKey = $.QueryString["apiKey"];
 	$("a").each(function() {
   	  var _href = $(this).attr("href");
-  	  if (_href != "#") {
+  	  if (_href.indexOf("#") != 0) {
   		  $(this).attr("href", _href + '?apiKey=' + apiKey);
   	  }
   	});

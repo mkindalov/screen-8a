@@ -18,8 +18,8 @@
       <h1>Entries list</h1>
     </div>
     <div role="main" class="ui-content">
-      <ul data-role="listview" data-inset="true">
-        <li data-role="list-divider">Friday, October 8, 2010 <span class="ui-li-count">2</span></li>
+    <br/>
+      <ul data-role="listview">
       </ul>
     </div>
     <div id="footer" data-role="footer"></div>
@@ -31,18 +31,33 @@ $(document).ready(function() {
 	var apiKey = $.QueryString["apiKey"]
 	$.ajax( { url: "https://api.mongolab.com/api/1/databases/workout/collections/coll1?s={date:-1}&apiKey=" + apiKey, type: "GET"})
 	  .done(function( data ) {
+		  var dateMap = {};
 		  $.each(data, function(i, obj) {
-			  var li = $('<li><a href="index.html"></a></li>');
+			  var key = obj.date;
+			  if (!dateMap[key]) {
+				  dateMap[key] = [];
+			    }
+			  dateMap[key].push(obj);
+		  });
+		  $.each(dateMap, function(key, dataList) {
+			  var li = $('<li data-role="list-divider">' +dateToString(new Date(key)) + '<span class="ui-li-count">' + dataList.length + '</span></li>');
 			  $('ul').append(li);
-			  jQuery.each(obj, function(key, val) {
-				  if (key=="_id") {return};
-				  if (key=="tag") {
-					  li.find('a').prepend($('<h2>Activity: ' + val + '</h2>'));
-					  return
-					} 
-				  li.find('a').append($('<p><strong>' + key + ':</strong>' + val + '</p>'));
-			  });
-			});
+			  $.each(dataList, function(i, obj) {
+    			  var li = $('<li><a data-ajax="false" href="details.html?id=' + obj._id.$oid + '&apiKey=' + $.QueryString["apiKey"] + '"></a></li>');
+    			  $('ul').append(li);
+    			  jQuery.each(obj, function(key, val) {
+    				  if (key=="_id") {return};
+    				  if (key=="tag") {
+        				  li.find('a').prepend($('<h2>Activity: ' + val + '</h2>'));
+        				  return
+        				}
+    				  if (key=="date") {
+        				  return
+        				}
+    				  li.find('a').append($('<p style="white-space: normal" ><strong>' + key + ':</strong> ' + val + '</p>'));
+    			  });
+    			});
+		 	});
 		  $('ul').listview( "refresh" );
 	    });
 	});
