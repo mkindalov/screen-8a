@@ -1,0 +1,32 @@
+<main>
+    <h1 ng-show="city"><b>Weather in {{loc.city.name}}, {{loc.city.country}}</b></h1>
+    <section class="forecast">
+        <div ng-repeat-start="day in forecast" ng-if="$first" ng-show="city" class="today">
+            <h2>
+                <div>
+                    <h2>Today </h2>
+                    <img ng-src="http://openweathermap.org/img/w/{{day.weather[0].icon}}.png"/>
+                    <span>{{day.temp.day | number: 0}}°C</span> {{day.weather[0].main}} <br>
+                </div>
+
+                <span>{{day.temp.max | number: 0}}°C / {{day.temp.min | number: 0}}°C</span><br>
+                <span>Humidity is {{day.humidity}}%</span><br>
+                <span>Wind speed is {{day.speed | number: 2}} km/h</span>
+                </h3>
+            </h2>
+        </div>
+        <div ng-repeat-end ng-show="city" ng-if="!first">
+            <h3>
+                <div>
+                    <h2>{{day.dt *1000 | date: 'EEEE'}}</h2>
+                    <img ng-src="http://openweathermap.org/img/w/{{day.weather[0].icon}}.png"/>
+                    <span>{{day.temp.day | number: 0}}°C</span> {{day.weather[0].main}} <br>
+                </div>
+                <span>{{day.temp.max | number: 0}}°C / {{day.temp.min | number: 0}}°C</span><br>
+                <span>Humidity is {{day.humidity}}%</span><br>
+                <span>Wind speed is {{day.speed | number: 2}} km/h</span>
+            </h3>
+        </div>
+    </section>
+</main>
+
