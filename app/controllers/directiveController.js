@@ -7,7 +7,7 @@ app.controller('infoscreenDisplay', function($scope, $timeout) {
         $scope.$apply(function(){
             $scope.template = obj;
         });
-       }, index * 60000);
+       }, index * 300000);
     })
 
 });
@@ -19,7 +19,7 @@ app.directive('picasa', function() {
             text: "@text"
         },
         controller: function($scope, $http, $log, $timeout){
-            var INTERVAL = 3000;
+            var INTERVAL = 10000;
             load_images();
             loadSlides();
 
