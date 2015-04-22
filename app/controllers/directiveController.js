@@ -1,13 +1,13 @@
 var app = angular.module("8a-screen");
 
 app.controller('infoscreenDisplay', function($scope, $timeout) {
-    var templates=["weatherSK", "weatherBT", "picasaThailand", "weatherDK", "weatherAM", "picasaGermany", "picasaBaltic"];
+    var templates=["weatherSK", "weatherBT", "picasaThailand", "weatherDK", "weatherSR", "picasaGermany", "picasaBaltic"];
     angular.forEach(templates, function(obj, index){
       $timeout(function () {
         $scope.$apply(function(){
             $scope.template = obj;
         });
-       }, index * 10000);
+       }, index * 60000);
     })
 
 });
